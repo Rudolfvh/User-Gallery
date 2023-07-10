@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery</title>
+</head>
+<body>
+<!--<h1 th:text="${user.name} + ' ' + ${user.lastname} + ' Gallery'"></h1>-->
+<!--    отображение картинки-->
+<div th:each="image : ${images}">
+
+  <img width="100px" th:src="@{/api/v1/images/{imageId}(imageId = ${image.id})}"/>
+  <br>
+  <form th:action="@{/gallery/{userId}/update/image/{imageId}(userId = ${user.id}, imageId = ${image.id})}" method="post" enctype="multipart/form-data">
+    <label for="image">New Image:
+      <input id="image" type="file" name="image">
+    </label>
+    <button type="submit" style="background-color: powderblue">Update</button>
+  </form>
+  <br>
+  <form th:action="@{/gallery/{userId}/remove/image/{imageId}(userId = ${user.id}, imageId = ${image.id})}"
+        method="post">
+    <button type="submit" style="background-color: coral">Delete image</button>
+  </form>
+  <br>
+</div>
+
+<form th:action="@{/gallery/{userId}/add/image(userId = ${user.id})}" method="post" enctype="multipart/form-data">
+  <label for="image">Image:
+    <input id="image" type="file" name="image">
+  </label>
+  <button type="submit" style="background-color: greenyellow">Add Image</button>
+</form>
+
+<div>
+
+</div>
+
+</body>
+</html>
